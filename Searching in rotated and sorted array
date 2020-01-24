@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+//one half out of both will always be sorted search accordingly
+int search(int *a,int s,int e,int key)
+{
+    if(s>e)
+        return -1;
+    int mid=(s+e)/2;
+    if(a[mid]==key)
+        return mid;
+    if(a[s]<=a[mid])
+    {
+        //first half sorted
+        if(a[mid]>=key&&a[s]<=key)
+            return search(a,s,mid-1,key);
+        return search(a,mid+1,e,key);
+    }
+    else
+    {
+        //other half is sorted
+        if(a[mid]<=key&&a[e]>=key)
+            return search(a,mid+1,e,key);
+        return search(a,s,mid-1,key);
+    }
+}
+int main(void)
+{
+    int n;
+    cin>>n;
+    int a[n];
+    //enter sorted rotated array
+    for(int i=0;i<n;i++)
+        cin>>a[i];
+    int key;
+    cin>>key;
+    int s=0;
+    int e=(sizeof(a)/sizeof(a[0]))-1;
+    cout<<search(a,s,e,key);
+}
