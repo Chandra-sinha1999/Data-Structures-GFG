@@ -1,0 +1,39 @@
+#include<iostream>
+using namespace std;
+//have to update for boundary cases
+//like 6,1,2,3,4,5
+//or 1,2,3,4,5,6
+int findpivot(int *a,int s,int e)
+{
+    int mid=(s+e)/2;
+    if(a[mid]>a[mid-1]&&a[mid]>a[mid+1])
+        return mid;
+    if(a[s]>a[e]&&a[s]>a[s+1])
+        return s;
+    if(a[e]>a[s]&&a[e]>a[e-1])
+        return e;
+    if(a[mid+1]<a[e])
+    {
+        return findpivot(a,s,mid-1);
+    }
+    else
+    {
+        return findpivot(a,mid+1,e);
+    }
+}
+int main(void)
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+    cout<<findpivot(a,0,n-1)<<endl;
+    }
+}
